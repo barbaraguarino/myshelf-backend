@@ -3,7 +3,7 @@ package br.com.myshelf.backend.domain.exception;
 import lombok.Getter;
 
 @Getter
-public class DomainException extends RuntimeException {
+public abstract class DomainException extends RuntimeException {
 
     private final String errorCode;
 

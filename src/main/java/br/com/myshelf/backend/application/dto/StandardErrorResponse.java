@@ -13,5 +13,5 @@ public record StandardErrorResponse(
         String error,
         String message,
         String path,
-        List<FieldErrorResponse> validationsErros
+        List<FieldErrorResponse> validationErrors
 ){}
