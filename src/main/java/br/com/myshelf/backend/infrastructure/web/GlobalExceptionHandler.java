@@ -1,7 +1,6 @@
 package br.com.myshelf.backend.infrastructure.web;
 
-import br.com.myshelf.backend.application.dto.FieldErrorResponse;
-import br.com.myshelf.backend.application.dto.StandardErrorResponse;
+import br.com.myshelf.backend.infrastructure.web.dto.FieldErrorResponse;
 import br.com.myshelf.backend.domain.exception.BusinessRuleException;
 import br.com.myshelf.backend.domain.exception.DomainException;
 import br.com.myshelf.backend.domain.exception.ResourceNotFoundException;
@@ -9,95 +8,91 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.net.URI;
 import java.time.Instant;
 import java.util.List;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler{
+public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<StandardErrorResponse> handleResourceNotFound(ResourceNotFoundException ex, HttpServletRequest request) {
+    public ResponseEntity<ProblemDetail> handleResourceNotFound(ResourceNotFoundException ex, HttpServletRequest request) {
         return buildDomainResponse(HttpStatus.NOT_FOUND, "Resource Not Found", ex, request);
     }
 
-
     @ExceptionHandler(BusinessRuleException.class)
-    public ResponseEntity<StandardErrorResponse> handleBusinessRule(BusinessRuleException ex, HttpServletRequest request) {
-        return buildDomainResponse(HttpStatus.UNPROCESSABLE_CONTENT, "Unprocessable Entity", ex, request);
+    public ResponseEntity<ProblemDetail> handleBusinessRule(BusinessRuleException ex, HttpServletRequest request) {
+        return buildDomainResponse(HttpStatus.UNPROCESSABLE_CONTENT, "Unprocessable Content", ex, request);
     }
 
-
     @ExceptionHandler(DomainException.class)
-    public ResponseEntity<StandardErrorResponse> handleGenericDomainException(DomainException ex, HttpServletRequest request) {
-        logger.warn("DomainException tratada pelo fallback genérico. Verifique se falta um handler específico: {}", ex.getMessage());
+    public ResponseEntity<ProblemDetail> handleGenericDomainException(DomainException ex, HttpServletRequest request) {
+        logger.warn("DomainException sem tratamento específico interceptada: {}", ex.getMessage());
         return buildDomainResponse(HttpStatus.BAD_REQUEST, "Domain Error", ex, request);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<StandardErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-
+    public ResponseEntity<ProblemDetail> handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request) {
         List<FieldErrorResponse> fieldErrors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(f -> new FieldErrorResponse(f.getField(), f.getDefaultMessage()))
+                .map(f -> new FieldErrorResponse(f.getField(), f.getCode(), f.getDefaultMessage()))
                 .toList();
 
-        StandardErrorResponse error = new StandardErrorResponse(
-                Instant.now(),
-                status.value(),
-                "VALIDATION_ERROR",
-                "Bad Request",
+        ProblemDetail problemDetail = createProblemDetail(
+                HttpStatus.BAD_REQUEST,
+                "Validation Error",
                 "Falha na validação de um ou mais campos da requisição.",
-                request.getRequestURI(),
-                fieldErrors
+                "VALIDATION_ERROR",
+                request.getRequestURI()
         );
 
-        return ResponseEntity.status(status).body(error);
+        problemDetail.setProperty("validationErrors", fieldErrors);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetail);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<StandardErrorResponse> handleAllUncaughtException(Exception ex, HttpServletRequest request) {
-        logger.error("Erro interno inesperado detectado no caminho: {}", request.getRequestURI(), ex);
+    public ResponseEntity<ProblemDetail> handleAllUncaughtException(Exception ex, HttpServletRequest request) {
+        logger.error("Erro catastrófico interceptado na rota [{}]: ", request.getRequestURI(), ex);
 
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-
-        StandardErrorResponse error = new StandardErrorResponse(
-                Instant.now(),
-                status.value(),
-                "INTERNAL_ERROR",
+        ProblemDetail problemDetail = createProblemDetail(
+                HttpStatus.INTERNAL_SERVER_ERROR,
                 "Internal Server Error",
                 "Ocorreu um erro interno inesperado no servidor. Contate o suporte.",
-                request.getRequestURI(),
-                null
+                "INTERNAL_ERROR",
+                request.getRequestURI()
         );
 
-        return ResponseEntity.status(status).body(error);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(problemDetail);
     }
 
-    private ResponseEntity<StandardErrorResponse> buildDomainResponse(
-            HttpStatus status,
-            String errorType,
-            DomainException ex,
-            HttpServletRequest request) {
-
-        StandardErrorResponse response = new StandardErrorResponse(
-                Instant.now(),
-                status.value(),
-                ex.getErrorCode(),
-                errorType,
+    private ResponseEntity<ProblemDetail> buildDomainResponse(HttpStatus status, String title, DomainException ex, HttpServletRequest request) {
+        ProblemDetail problemDetail = createProblemDetail(
+                status,
+                title,
                 ex.getMessage(),
-                request.getRequestURI(),
-                null
+                ex.getErrorCode(),
+                request.getRequestURI()
         );
+        return ResponseEntity.status(status).body(problemDetail);
+    }
 
-        return ResponseEntity.status(status).body(response);
+    private ProblemDetail createProblemDetail(HttpStatus status, String title, String detail, String errorCode, String uri) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(status, detail);
+        problemDetail.setTitle(title);
+        problemDetail.setInstance(URI.create(uri));
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setProperty("errorCode", errorCode);
+
+        return problemDetail;
     }
 }
