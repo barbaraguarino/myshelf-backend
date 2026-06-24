@@ -2,6 +2,8 @@ package br.com.myshelf.backend.domain.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 
 import java.sql.Timestamp;
@@ -22,7 +24,11 @@ public class User{
     private String nickname;
     private String email;
     private String password;
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     private Timestamp createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
     private Timestamp updatedAt;
 
     public static User createUser(String name,
