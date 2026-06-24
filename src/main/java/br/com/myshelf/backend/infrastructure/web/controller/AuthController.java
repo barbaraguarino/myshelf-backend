@@ -20,8 +20,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<Boolean> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
+    public ResponseEntity<Void> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
         authService.createUser(userRegisterDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(true);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
