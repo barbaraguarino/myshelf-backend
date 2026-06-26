@@ -7,9 +7,9 @@ Este documento centraliza as tarefas de desenvolvimento da API REST MyShelf. O f
 Esta seção contém as tarefas que devem ser executadas sequencialmente.
 
 - [x] **Configuração Inicial e Conexão com o Banco**: Preparar o ambiente da aplicação para persistir dados e configurando o banco em memória (H2).
-- [ ] **Tratamento Global de Exceções**: Interceptar os erros da aplicação (como campos nulos ou registros não encontrados) e devolver um JSON padronizado e amigável para o cliente HTTP, ocultando a *stacktrace* interna do Java.
-- [ ] **Cadastro de Usuário**: Implementar a entidade de Usuário e a lógica de criação de contas, garantindo o encapsulamento e a segurança dos dados sensíveis (a senha não pode ser salva em texto puro).
-- [ ] **Autenticação Simples (Login com JWT via Cookies)**: Configurar o Spring Security para blindar a API e permitir a autenticação do usuário, gerando um token JWT assinado para as requisições subsequentes via cookies.
+- [x] **Tratamento Global de Exceções**: Interceptar os erros da aplicação (como campos nulos ou registros não encontrados) e devolver um JSON padronizado e amigável para o cliente HTTP, ocultando a *stacktrace* interna do Java.
+- [x] **Cadastro de Usuário**: Implementar a entidade de Usuário e a lógica de criação de contas, garantindo o encapsulamento e a segurança dos dados sensíveis (a senha não pode ser salva em texto puro).
+- [x] **Autenticação Simples (Login com JWT via Cookies)**: Configurar o Spring Security para blindar a API e permitir a autenticação do usuário, gerando um token JWT assinado para as requisições subsequentes via cookies.
 - [ ] **Cadastro de Gêneros Literários**: Configurar as regras de negócios e estrutura básica com domínio e DTOs para persistir os gêneros literários no banco de dados.
 - [ ] **Cadastro de Editoras**: Configurar as regras de negócios e estrutura básica com domínio e DTOs para persistir as editoras no banco de dados.
 - [ ] **Cadastro de Autores**: Configurar as regras de negócios e estrutura básica com domínio e DTOs para persistir os autores no banco de dados.
