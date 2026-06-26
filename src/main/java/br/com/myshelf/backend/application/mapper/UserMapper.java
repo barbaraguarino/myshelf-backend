@@ -1,5 +1,6 @@
 package br.com.myshelf.backend.application.mapper;
 
+import br.com.myshelf.backend.application.dto.UserLoginResponseDTO;
 import br.com.myshelf.backend.application.dto.UserRegisterDTO;
 import br.com.myshelf.backend.domain.model.User;
 import org.springframework.stereotype.Component;
@@ -15,5 +16,15 @@ public class UserMapper {
                 nickname,
                 userRegisterDTO.email(),
                 encodedPassword);
+    }
+
+    public UserLoginResponseDTO toUserLoginResponseDTO(User user){
+        if(user == null)
+            return null;
+
+        return new UserLoginResponseDTO(user.getName(),
+                user.getNickname(),
+                user.getEmail(),
+                user.getCreatedAt());
     }
 }
