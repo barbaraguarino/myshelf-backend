@@ -42,7 +42,7 @@ public class GenreService {
 
         Map<String, Genre> existingGenresMap = existingGenres.stream()
                 .collect(Collectors.toMap(
-                        genre -> genre.getName().toLowerCase(),
+                        genre -> genre.getName().trim().toLowerCase(),
                         genre -> genre
                 ));
 
