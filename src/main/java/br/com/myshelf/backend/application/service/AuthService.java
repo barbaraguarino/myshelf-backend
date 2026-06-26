@@ -51,9 +51,8 @@ public class AuthService {
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
         UserDetailsAdapter userDetails = (UserDetailsAdapter) authentication.getPrincipal();
-
         assert userDetails != null;
-        User user = userDetails.getUser();
+        User user = userDetails.user();
 
         var token = tokenService.generateToken(user);
         var dto = userMapper.toUserLoginResponseDTO(user);
