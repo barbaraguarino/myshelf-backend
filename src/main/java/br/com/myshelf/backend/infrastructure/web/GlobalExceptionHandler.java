@@ -1,5 +1,6 @@
 package br.com.myshelf.backend.infrastructure.web;
 
+import br.com.myshelf.backend.domain.exception.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.infrastructure.web.dto.FieldErrorResponse;
 import br.com.myshelf.backend.domain.exception.BusinessRuleException;
 import br.com.myshelf.backend.domain.exception.DomainException;
@@ -86,6 +87,11 @@ public class GlobalExceptionHandler {
                 request.getRequestURI()
         );
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(problemDetail);
+    }
+
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    public ResponseEntity<ProblemDetail> handleResourceAlreadyExists(ResourceAlreadyExistsException ex, HttpServletRequest request) {
+        return buildDomainResponse(HttpStatus.CONFLICT, "Resource Conflict", ex, request);
     }
 
     private ResponseEntity<ProblemDetail> buildDomainResponse(HttpStatus status, String title, DomainException ex, HttpServletRequest request) {

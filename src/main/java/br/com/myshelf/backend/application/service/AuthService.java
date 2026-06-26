@@ -6,6 +6,7 @@ import br.com.myshelf.backend.application.dto.UserRegisterDTO;
 import br.com.myshelf.backend.application.mapper.UserMapper;
 import br.com.myshelf.backend.application.util.NicknameGenerator;
 import br.com.myshelf.backend.domain.exception.BusinessRuleException;
+import br.com.myshelf.backend.domain.exception.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.domain.model.User;
 import br.com.myshelf.backend.domain.repository.UserRepository;
 import br.com.myshelf.backend.infrastructure.security.TokenService;
@@ -33,7 +34,7 @@ public class AuthService {
     public void createUser(UserRegisterDTO userRegisterDTO) {
 
         if(userRepository.existsByEmail(userRegisterDTO.email()))
-            throw new BusinessRuleException("E-mail já existe.", "EMAIL_ALREADY_EXISTS");
+            throw new ResourceAlreadyExistsException("Usuário", "e-mail", userRegisterDTO.email());
 
         String encodedPassword = passwordEncoder.encode(userRegisterDTO.password());
         String nickname = NicknameGenerator.generate(userRegisterDTO.name());
