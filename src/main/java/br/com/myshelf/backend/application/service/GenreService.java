@@ -11,7 +11,10 @@ import br.com.myshelf.backend.domain.repository.GenreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,18 +34,39 @@ public class GenreService {
     }
 
     public GenreListResponseDTO createGenreList(GenreListAddDTO genreListAddDTO) {
-        List<GenreResponseDTO> genres = genreListAddDTO.genreList().stream()
-                .map(genreDTO -> {
-                    String cleanName = genreDTO.name().trim();
-
-                    Genre genre = genreRepository.existsByNameIgnoreCase(cleanName)
-                            ? genreRepository.findByNameIgnoreCase(cleanName)
-                            : genreRepository.save(genreMapper.toEntity(genreDTO));
-
-                    return genreMapper.toResponseDTO(genre);
-                })
+        List<String> names = genreListAddDTO.genreList().stream()
+                .map(dto -> dto.name().trim())
                 .toList();
 
-        return new GenreListResponseDTO(genres);
+        List<Genre> existingGenres = genreRepository.findByNameInIgnoreCase(names);
+
+        Map<String, Genre> existingGenresMap = existingGenres.stream()
+                .collect(Collectors.toMap(
+                        genre -> genre.getName().toLowerCase(),
+                        genre -> genre
+                ));
+
+        List<Genre> allGenresReturn = new ArrayList<>();
+        List<Genre> newGenres = new ArrayList<>();
+
+        for (String name : names) {
+            String nameKey = name.toLowerCase();
+
+            if (existingGenresMap.containsKey(nameKey)) {
+                allGenresReturn.add(existingGenresMap.get(nameKey));
+            } else {
+                Genre newGenre = Genre.createGenre(name);
+                newGenres.add(newGenre);
+
+                existingGenresMap.put(nameKey, newGenre);
+            }
+        }
+
+        if (!newGenres.isEmpty()) {
+            List<Genre> savedGenres = genreRepository.saveAll(newGenres);
+            allGenresReturn.addAll(savedGenres);
+        }
+
+        return genreMapper.toResponseDTO(allGenresReturn);
     }
 }
