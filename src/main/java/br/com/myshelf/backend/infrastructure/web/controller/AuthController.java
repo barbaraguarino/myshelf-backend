@@ -1,8 +1,8 @@
 package br.com.myshelf.backend.infrastructure.web.controller;
 
-import br.com.myshelf.backend.application.dto.UserLoginDTO;
-import br.com.myshelf.backend.application.dto.UserLoginResponseDTO;
-import br.com.myshelf.backend.application.dto.UserRegisterDTO;
+import br.com.myshelf.backend.application.dto.auth.UserLoginDTO;
+import br.com.myshelf.backend.application.dto.auth.UserLoginResponseDTO;
+import br.com.myshelf.backend.application.dto.auth.UserRegisterDTO;
 import br.com.myshelf.backend.application.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
