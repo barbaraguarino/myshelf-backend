@@ -1,7 +1,6 @@
 package br.com.myshelf.backend.application.mapper;
 
 import br.com.myshelf.backend.application.dto.genre.GenreAddDTO;
-import br.com.myshelf.backend.application.dto.genre.GenreListAddDTO;
 import br.com.myshelf.backend.application.dto.genre.GenreListResponseDTO;
 import br.com.myshelf.backend.application.dto.genre.GenreResponseDTO;
 import br.com.myshelf.backend.domain.model.Genre;
@@ -17,14 +16,6 @@ public class GenreMapper {
     public Genre toEntity(GenreAddDTO dto) {
         if (dto == null) return null;
         return Genre.createGenre(dto.name());
-    }
-
-    public List<Genre> toEntity(GenreListAddDTO dto) {
-        if (dto == null || dto.genreList() == null) return Collections.emptyList();
-
-        return dto.genreList().stream()
-                .map(genre -> Genre.createGenre(genre.name()))
-                .collect(Collectors.toList());
     }
 
     public GenreResponseDTO toResponseDTO(Genre genre) {

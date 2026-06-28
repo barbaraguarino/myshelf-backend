@@ -1,7 +1,6 @@
 package br.com.myshelf.backend.application.mapper;
 
 import br.com.myshelf.backend.application.dto.publisher.PublisherAddDTO;
-import br.com.myshelf.backend.application.dto.publisher.PublisherListAddDTO;
 import br.com.myshelf.backend.application.dto.publisher.PublisherListResponseDTO;
 import br.com.myshelf.backend.application.dto.publisher.PublisherResponseDTO;
 import br.com.myshelf.backend.domain.model.Publisher;
@@ -17,14 +16,6 @@ public class PublisherMapper {
     public Publisher toEntity(PublisherAddDTO dto) {
         if (dto == null) return null;
         return Publisher.createPublisher(dto.name());
-    }
-
-    public List<Publisher> toEntity(PublisherListAddDTO dto) {
-        if (dto == null || dto.publishers() == null) return Collections.emptyList();
-
-        return dto.publishers().stream()
-                .map(publisher -> Publisher.createPublisher(publisher.name()))
-                .collect(Collectors.toList());
     }
 
     public PublisherResponseDTO toResponseDTO(Publisher publisher) {
