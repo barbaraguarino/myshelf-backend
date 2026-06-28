@@ -1,0 +1,13 @@
+CREATE TABLE tb_books_authors (
+
+    book_id UUID NOT NULL,
+    author_id UUID NOT NULL,
+
+    PRIMARY KEY (book_id, author_id),
+
+    created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_book FOREIGN KEY (book_id) REFERENCES tb_books(id) ON DELETE CASCADE,
+    CONSTRAINT fk_author FOREIGN KEY (author_id) REFERENCES tb_authors(id) ON DELETE CASCADE
+);
