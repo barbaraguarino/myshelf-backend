@@ -1,9 +1,9 @@
 package br.com.myshelf.backend.application.service;
 
-import br.com.myshelf.backend.application.dto.GenreAddDTO;
-import br.com.myshelf.backend.application.dto.GenreListAddDTO;
-import br.com.myshelf.backend.application.dto.GenreListResponseDTO;
-import br.com.myshelf.backend.application.dto.GenreResponseDTO;
+import br.com.myshelf.backend.application.dto.genre.GenreAddDTO;
+import br.com.myshelf.backend.application.dto.genre.GenreListAddDTO;
+import br.com.myshelf.backend.application.dto.genre.GenreListResponseDTO;
+import br.com.myshelf.backend.application.dto.genre.GenreResponseDTO;
 import br.com.myshelf.backend.application.mapper.GenreMapper;
 import br.com.myshelf.backend.domain.exception.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.domain.model.Genre;
