@@ -11,8 +11,8 @@ Esta seção contém as tarefas que devem ser executadas sequencialmente.
 - [x] **Cadastro de Usuário**: Implementar a entidade de Usuário e a lógica de criação de contas, garantindo o encapsulamento e a segurança dos dados sensíveis (a senha não pode ser salva em texto puro).
 - [x] **Autenticação Simples (Login com JWT via Cookies)**: Configurar o Spring Security para blindar a API e permitir a autenticação do usuário, gerando um token JWT assinado para as requisições subsequentes via cookies.
 - [x] **Cadastro de Gêneros Literários**: Configurar as regras de negócios e estrutura básica com domínio e DTOs para persistir os gêneros literários no banco de dados.
-- [ ] **Cadastro de Editoras**: Configurar as regras de negócios e estrutura básica com domínio e DTOs para persistir as editoras no banco de dados.
-- [ ] **Cadastro de Autores**: Configurar as regras de negócios e estrutura básica com domínio e DTOs para persistir os autores no banco de dados.
+- [x] **Cadastro de Editoras**: Configurar as regras de negócios e estrutura básica com domínio e DTOs para persistir as editoras no banco de dados.
+- [x] **Cadastro de Autores**: Configurar as regras de negócios e estrutura básica com domínio e DTOs para persistir os autores no banco de dados.
 - [ ] **Cadastro de Livros**: Configurar as regras de negócios e estrutura básica com domínio e DTOs para persistir os livros no banco de dados.
 
 

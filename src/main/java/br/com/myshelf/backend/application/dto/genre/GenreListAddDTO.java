@@ -1,4 +1,4 @@
-package br.com.myshelf.backend.application.dto;
+package br.com.myshelf.backend.application.dto.genre;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;

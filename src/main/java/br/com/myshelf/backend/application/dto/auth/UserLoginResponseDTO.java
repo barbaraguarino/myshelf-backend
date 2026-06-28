@@ -1,4 +1,4 @@
-package br.com.myshelf.backend.application.dto;
+package br.com.myshelf.backend.application.dto.auth;
 
 import java.sql.Timestamp;
 

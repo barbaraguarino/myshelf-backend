@@ -1,11 +1,10 @@
 package br.com.myshelf.backend.application.service;
 
-import br.com.myshelf.backend.application.dto.UserLoginDTO;
-import br.com.myshelf.backend.application.dto.UserLoginResponseDTO;
-import br.com.myshelf.backend.application.dto.UserRegisterDTO;
+import br.com.myshelf.backend.application.dto.auth.UserLoginDTO;
+import br.com.myshelf.backend.application.dto.auth.UserLoginResponseDTO;
+import br.com.myshelf.backend.application.dto.auth.UserRegisterDTO;
 import br.com.myshelf.backend.application.mapper.UserMapper;
 import br.com.myshelf.backend.application.util.NicknameGenerator;
-import br.com.myshelf.backend.domain.exception.BusinessRuleException;
 import br.com.myshelf.backend.domain.exception.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.domain.model.User;
 import br.com.myshelf.backend.domain.repository.UserRepository;
@@ -56,7 +55,7 @@ public class AuthService {
         User user = userDetails.user();
 
         var token = tokenService.generateToken(user);
-        var dto = userMapper.toUserLoginResponseDTO(user);
+        UserLoginResponseDTO dto = userMapper.toResponseDTO(user);
 
         return new AuthResultLogin(token, dto);
 
