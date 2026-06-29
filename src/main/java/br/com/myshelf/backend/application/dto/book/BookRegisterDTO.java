@@ -1,13 +1,13 @@
 package br.com.myshelf.backend.application.dto.book;
 
-import br.com.myshelf.backend.application.dto.genre.GenreResponseDTO;
-import br.com.myshelf.backend.application.dto.publisher.PublisherResponseDTO;
+import br.com.myshelf.backend.application.dto.genre.GenreDTO;
+import br.com.myshelf.backend.application.dto.publisher.PublisherDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
 import java.util.List;
 
-public record BookAddDTO(
+public record BookRegisterDTO(
         @NotBlank(message = "O código/ISBN é obrigatório.")
         @Size(min = 10, max = 13, message = "O ISBN deve ter entre 10 e 13 caracteres.")
         String code,
@@ -35,11 +35,11 @@ public record BookAddDTO(
         Integer publicationYear,
 
         @NotNull(message = "A editora é obrigatória.")
-        @Valid PublisherResponseDTO publisher,
+        @Valid PublisherDTO publisher,
 
         @NotEmpty(message = "Ao menos um autor deve ser informado.")
-        @Valid List<PublisherResponseDTO> authors,
+        @Valid List<PublisherDTO> authors,
 
         @NotEmpty(message = "Ao menos um gênero deve ser informado.")
-        @Valid List<GenreResponseDTO> genres
+        @Valid List<GenreDTO> genres
 ) {}

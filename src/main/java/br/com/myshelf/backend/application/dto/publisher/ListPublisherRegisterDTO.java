@@ -5,8 +5,8 @@ import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
-public record PublisherListAddDTO (
+public record ListPublisherRegisterDTO(
         @NotEmpty(message = "A lista de editoras não pode estar vazia.")
         @Valid
-        List<PublisherAddDTO> publishers
+        List<PublisherRegisterDTO> publishers
 ){}

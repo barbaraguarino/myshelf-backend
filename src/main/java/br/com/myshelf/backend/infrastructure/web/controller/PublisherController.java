@@ -1,9 +1,9 @@
 package br.com.myshelf.backend.infrastructure.web.controller;
 
-import br.com.myshelf.backend.application.dto.publisher.PublisherAddDTO;
-import br.com.myshelf.backend.application.dto.publisher.PublisherListAddDTO;
-import br.com.myshelf.backend.application.dto.publisher.PublisherListResponseDTO;
-import br.com.myshelf.backend.application.dto.publisher.PublisherResponseDTO;
+import br.com.myshelf.backend.application.dto.publisher.PublisherRegisterDTO;
+import br.com.myshelf.backend.application.dto.publisher.ListPublisherRegisterDTO;
+import br.com.myshelf.backend.application.dto.publisher.ListPublisherDTO;
+import br.com.myshelf.backend.application.dto.publisher.PublisherDTO;
 import br.com.myshelf.backend.application.service.PublisherService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +22,14 @@ public class PublisherController {
     private final PublisherService publisherService;
 
     @PostMapping
-    public ResponseEntity<PublisherResponseDTO> createPublisher(@Valid @RequestBody PublisherAddDTO publisherAddDTO) {
-        var publisher = publisherService.createPublisher(publisherAddDTO);
+    public ResponseEntity<PublisherDTO> createPublisher(@Valid @RequestBody PublisherRegisterDTO publisherRegisterDTO) {
+        var publisher = publisherService.createPublisher(publisherRegisterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(publisher);
     }
 
     @PostMapping("/list")
-    public ResponseEntity<PublisherListResponseDTO> createPublisherList(@Valid @RequestBody PublisherListAddDTO publisherListAddDTO){
-        var publisherList = publisherService.createPublisherList(publisherListAddDTO);
+    public ResponseEntity<ListPublisherDTO> createPublisherList(@Valid @RequestBody ListPublisherRegisterDTO listPublisherRegisterDTO){
+        var publisherList = publisherService.createPublisherList(listPublisherRegisterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(publisherList);
     }
 }

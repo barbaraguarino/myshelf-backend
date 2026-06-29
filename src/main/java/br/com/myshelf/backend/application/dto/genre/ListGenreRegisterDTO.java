@@ -5,8 +5,8 @@ import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
-public record GenreListAddDTO (
+public record ListGenreRegisterDTO(
     @NotEmpty(message = "A lista de gêneros literários não pode estar vazia.")
     @Valid
-    List<GenreAddDTO> genreList
+    List<GenreRegisterDTO> genreList
 ){}

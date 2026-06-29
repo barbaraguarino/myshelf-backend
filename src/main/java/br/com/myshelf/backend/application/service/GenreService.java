@@ -1,9 +1,9 @@
 package br.com.myshelf.backend.application.service;
 
-import br.com.myshelf.backend.application.dto.genre.GenreAddDTO;
-import br.com.myshelf.backend.application.dto.genre.GenreListAddDTO;
-import br.com.myshelf.backend.application.dto.genre.GenreListResponseDTO;
-import br.com.myshelf.backend.application.dto.genre.GenreResponseDTO;
+import br.com.myshelf.backend.application.dto.genre.GenreRegisterDTO;
+import br.com.myshelf.backend.application.dto.genre.ListGenreRegisterDTO;
+import br.com.myshelf.backend.application.dto.genre.ListGenreDTO;
+import br.com.myshelf.backend.application.dto.genre.GenreDTO;
 import br.com.myshelf.backend.application.mapper.GenreMapper;
 import br.com.myshelf.backend.domain.exception.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.domain.model.Genre;
@@ -23,18 +23,18 @@ public class GenreService {
     private final GenreRepository genreRepository;
     private final GenreMapper genreMapper;
 
-    public GenreResponseDTO createGenre(GenreAddDTO genreAddDTO){
-        if(genreRepository.existsByNameIgnoreCase(genreAddDTO.name().trim()))
-            throw new ResourceAlreadyExistsException("Genre", "nome", genreAddDTO.name().trim());
+    public GenreDTO createGenre(GenreRegisterDTO genreRegisterDTO){
+        if(genreRepository.existsByNameIgnoreCase(genreRegisterDTO.name().trim()))
+            throw new ResourceAlreadyExistsException("Genre", "nome", genreRegisterDTO.name().trim());
 
-        Genre genre = genreMapper.toEntity(genreAddDTO);
+        Genre genre = genreMapper.toEntity(genreRegisterDTO);
         genre = genreRepository.save(genre);
 
         return genreMapper.toResponseDTO(genre);
     }
 
-    public GenreListResponseDTO createGenreList(GenreListAddDTO genreListAddDTO) {
-        List<String> names = genreListAddDTO.genreList().stream()
+    public ListGenreDTO createGenreList(ListGenreRegisterDTO listGenreRegisterDTO) {
+        List<String> names = listGenreRegisterDTO.genreList().stream()
                 .map(dto -> dto.name().trim())
                 .toList();
 
