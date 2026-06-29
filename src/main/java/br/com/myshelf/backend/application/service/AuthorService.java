@@ -8,6 +8,7 @@ import br.com.myshelf.backend.application.mapper.AuthorMapper;
 import br.com.myshelf.backend.domain.exception.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.domain.model.Author;
 import br.com.myshelf.backend.domain.repository.AuthorRepository;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class AuthorService {
 
     private final AuthorRepository authorRepository;

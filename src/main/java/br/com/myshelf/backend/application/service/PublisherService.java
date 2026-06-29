@@ -8,6 +8,7 @@ import br.com.myshelf.backend.application.mapper.PublisherMapper;
 import br.com.myshelf.backend.domain.exception.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.domain.model.Publisher;
 import br.com.myshelf.backend.domain.repository.PublisherRepository;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class PublisherService {
 
     private final PublisherRepository publisherRepository;
