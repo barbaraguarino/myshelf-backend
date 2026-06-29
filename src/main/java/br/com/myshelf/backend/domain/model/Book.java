@@ -22,7 +22,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String isbn;
+    private String code;
     private String title;
     private String format;
 
@@ -74,7 +74,7 @@ public class Book {
                                   Set<Author> authors,
                                   Set<Genre> genres) {
         return Book.builder()
-                .isbn(isbn)
+                .code(isbn)
                 .title(title)
                 .format(format)
                 .pages(pages)
