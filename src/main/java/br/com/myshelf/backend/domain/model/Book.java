@@ -62,7 +62,7 @@ public class Book {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
-    public static Book createBook(String isbn,
+    public static Book createBook(String code,
                                   String title,
                                   String format,
                                   int pages,
@@ -74,7 +74,7 @@ public class Book {
                                   Set<Author> authors,
                                   Set<Genre> genres) {
         return Book.builder()
-                .code(isbn)
+                .code(code)
                 .title(title)
                 .format(format)
                 .pages(pages)
