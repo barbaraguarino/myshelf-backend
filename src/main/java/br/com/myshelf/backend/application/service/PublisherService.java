@@ -1,13 +1,14 @@
 package br.com.myshelf.backend.application.service;
 
-import br.com.myshelf.backend.application.dto.publisher.PublisherAddDTO;
-import br.com.myshelf.backend.application.dto.publisher.PublisherListAddDTO;
-import br.com.myshelf.backend.application.dto.publisher.PublisherListResponseDTO;
+import br.com.myshelf.backend.application.dto.publisher.PublisherRegisterDTO;
+import br.com.myshelf.backend.application.dto.publisher.ListPublisherRegisterDTO;
+import br.com.myshelf.backend.application.dto.publisher.ListPublisherDTO;
 import br.com.myshelf.backend.application.dto.publisher.PublisherResponseDTO;
 import br.com.myshelf.backend.application.mapper.PublisherMapper;
 import br.com.myshelf.backend.domain.exception.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.domain.model.Publisher;
 import br.com.myshelf.backend.domain.repository.PublisherRepository;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,24 +18,24 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class PublisherService {
 
     private final PublisherRepository publisherRepository;
     private final PublisherMapper publisherMapper;
 
-    public PublisherResponseDTO createPublisher(PublisherAddDTO publisherAddDTO){
-        if(publisherRepository.existsByNameIgnoreCase(publisherAddDTO.name().trim()))
-            throw new ResourceAlreadyExistsException("Editora", "nome", publisherAddDTO.name().trim());
+    public PublisherResponseDTO createPublisher(PublisherRegisterDTO publisherRegisterDTO){
+        if(publisherRepository.existsByNameIgnoreCase(publisherRegisterDTO.name().trim()))
+            throw new ResourceAlreadyExistsException("Editora", "nome", publisherRegisterDTO.name().trim());
 
-        Publisher publisher = publisherMapper.toEntity(publisherAddDTO);
+        Publisher publisher = publisherMapper.toEntity(publisherRegisterDTO);
         publisher = publisherRepository.save(publisher);
 
         return publisherMapper.toResponseDTO(publisher);
     }
 
-    public PublisherListResponseDTO createPublisherList(PublisherListAddDTO publisherListAddDTO) {
-        List<String> names = publisherListAddDTO.publishers().stream()
+    public ListPublisherDTO createPublisherList(ListPublisherRegisterDTO listPublisherRegisterDTO) {
+        List<String> names = listPublisherRegisterDTO.publishers().stream()
                 .map(dto -> dto.name().trim())
                 .toList();
 

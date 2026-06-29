@@ -1,8 +1,8 @@
 package br.com.myshelf.backend.infrastructure.web.controller;
 
-import br.com.myshelf.backend.application.dto.genre.GenreAddDTO;
-import br.com.myshelf.backend.application.dto.genre.GenreListAddDTO;
-import br.com.myshelf.backend.application.dto.genre.GenreListResponseDTO;
+import br.com.myshelf.backend.application.dto.genre.GenreRegisterDTO;
+import br.com.myshelf.backend.application.dto.genre.ListGenreRegisterDTO;
+import br.com.myshelf.backend.application.dto.genre.ListGenreDTO;
 import br.com.myshelf.backend.application.dto.genre.GenreResponseDTO;
 import br.com.myshelf.backend.application.service.GenreService;
 import jakarta.validation.Valid;
@@ -19,14 +19,14 @@ public class GenreController {
     private final GenreService genreService;
 
     @PostMapping
-    public ResponseEntity<GenreResponseDTO> createGenre(@Valid @RequestBody GenreAddDTO genreAddDTO) {
-        var genre = genreService.createGenre(genreAddDTO);
+    public ResponseEntity<GenreResponseDTO> createGenre(@Valid @RequestBody GenreRegisterDTO genreRegisterDTO) {
+        var genre = genreService.createGenre(genreRegisterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(genre);
     }
 
     @PostMapping("/list")
-    public ResponseEntity<GenreListResponseDTO> createGenreList(@Valid @RequestBody GenreListAddDTO genreListAddDTO){
-        var genreList = genreService.createGenreList(genreListAddDTO);
+    public ResponseEntity<ListGenreDTO> createGenreList(@Valid @RequestBody ListGenreRegisterDTO listGenreRegisterDTO){
+        var genreList = genreService.createGenreList(listGenreRegisterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(genreList);
     }
 }

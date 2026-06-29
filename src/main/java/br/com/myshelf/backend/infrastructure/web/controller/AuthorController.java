@@ -1,8 +1,8 @@
 package br.com.myshelf.backend.infrastructure.web.controller;
 
-import br.com.myshelf.backend.application.dto.author.AuthorAddDTO;
-import br.com.myshelf.backend.application.dto.author.AuthorListAddDTO;
-import br.com.myshelf.backend.application.dto.author.AuthorListResponseDTO;
+import br.com.myshelf.backend.application.dto.author.AuthorRegisterDTO;
+import br.com.myshelf.backend.application.dto.author.ListAuthorRegisterDTO;
+import br.com.myshelf.backend.application.dto.author.ListAuthorDTO;
 import br.com.myshelf.backend.application.dto.author.AuthorResponseDTO;
 import br.com.myshelf.backend.application.service.AuthorService;
 import jakarta.validation.Valid;
@@ -22,14 +22,14 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @PostMapping
-    public ResponseEntity<AuthorResponseDTO> createAuthor(@Valid @RequestBody AuthorAddDTO authorAddDTO) {
-        var author = authorService.createAuthor(authorAddDTO);
+    public ResponseEntity<AuthorResponseDTO> createAuthor(@Valid @RequestBody AuthorRegisterDTO authorRegisterDTO) {
+        var author = authorService.createAuthor(authorRegisterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(author);
     }
 
     @PostMapping("/list")
-    public ResponseEntity<AuthorListResponseDTO> createAuthorList(@Valid @RequestBody AuthorListAddDTO authorListAddDTO){
-        var authorList = authorService.createAuthorList(authorListAddDTO);
+    public ResponseEntity<ListAuthorDTO> createAuthorList(@Valid @RequestBody ListAuthorRegisterDTO listAuthorRegisterDTO){
+        var authorList = authorService.createAuthorList(listAuthorRegisterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(authorList);
     }
 }

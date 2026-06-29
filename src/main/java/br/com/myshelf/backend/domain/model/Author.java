@@ -6,6 +6,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -21,6 +23,9 @@ public class Author {
     private UUID id;
 
     private String name;
+
+    @ManyToMany(mappedBy = "authors")
+    private Set<Book> books = new HashSet<>();
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
