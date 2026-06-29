@@ -3,7 +3,7 @@ package br.com.myshelf.backend.infrastructure.web.controller;
 import br.com.myshelf.backend.application.dto.author.AuthorRegisterDTO;
 import br.com.myshelf.backend.application.dto.author.ListAuthorRegisterDTO;
 import br.com.myshelf.backend.application.dto.author.ListAuthorDTO;
-import br.com.myshelf.backend.application.dto.author.AuthorDTO;
+import br.com.myshelf.backend.application.dto.author.AuthorResponseDTO;
 import br.com.myshelf.backend.application.service.AuthorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @PostMapping
-    public ResponseEntity<AuthorDTO> createAuthor(@Valid @RequestBody AuthorRegisterDTO authorRegisterDTO) {
+    public ResponseEntity<AuthorResponseDTO> createAuthor(@Valid @RequestBody AuthorRegisterDTO authorRegisterDTO) {
         var author = authorService.createAuthor(authorRegisterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(author);
     }

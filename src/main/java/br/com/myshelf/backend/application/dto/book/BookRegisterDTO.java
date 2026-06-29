@@ -1,7 +1,8 @@
 package br.com.myshelf.backend.application.dto.book;
 
-import br.com.myshelf.backend.application.dto.genre.GenreDTO;
-import br.com.myshelf.backend.application.dto.publisher.PublisherDTO;
+import br.com.myshelf.backend.application.dto.author.AuthorRequestDTO;
+import br.com.myshelf.backend.application.dto.genre.GenreRequestDTO;
+import br.com.myshelf.backend.application.dto.publisher.PublisherRequestDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
@@ -35,11 +36,11 @@ public record BookRegisterDTO(
         Integer publicationYear,
 
         @NotNull(message = "A editora é obrigatória.")
-        @Valid PublisherDTO publisher,
+        @Valid PublisherRequestDTO publisher,
 
         @NotEmpty(message = "Ao menos um autor deve ser informado.")
-        @Valid List<PublisherDTO> authors,
+        @Valid List<AuthorRequestDTO> authors,
 
         @NotEmpty(message = "Ao menos um gênero deve ser informado.")
-        @Valid List<GenreDTO> genres
+        @Valid List<GenreRequestDTO> genres
 ) {}

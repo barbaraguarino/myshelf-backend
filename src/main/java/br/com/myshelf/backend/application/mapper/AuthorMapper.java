@@ -2,7 +2,7 @@ package br.com.myshelf.backend.application.mapper;
 
 import br.com.myshelf.backend.application.dto.author.AuthorRegisterDTO;
 import br.com.myshelf.backend.application.dto.author.ListAuthorDTO;
-import br.com.myshelf.backend.application.dto.author.AuthorDTO;
+import br.com.myshelf.backend.application.dto.author.AuthorResponseDTO;
 import br.com.myshelf.backend.domain.model.Author;
 import org.springframework.stereotype.Component;
 
@@ -18,15 +18,15 @@ public class AuthorMapper {
         return Author.createAuthor(dto.name());
     }
 
-    public AuthorDTO toResponseDTO(Author author) {
+    public AuthorResponseDTO toResponseDTO(Author author) {
         if (author == null) return null;
-        return new AuthorDTO(author.getId(), author.getName());
+        return new AuthorResponseDTO(author.getId(), author.getName());
     }
 
     public ListAuthorDTO toResponseDTO(List<Author> authors) {
         if (authors == null) return new ListAuthorDTO(Collections.emptyList());
 
-        List<AuthorDTO> list = authors.stream()
+        List<AuthorResponseDTO> list = authors.stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
 

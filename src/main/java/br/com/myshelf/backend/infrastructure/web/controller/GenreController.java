@@ -3,7 +3,7 @@ package br.com.myshelf.backend.infrastructure.web.controller;
 import br.com.myshelf.backend.application.dto.genre.GenreRegisterDTO;
 import br.com.myshelf.backend.application.dto.genre.ListGenreRegisterDTO;
 import br.com.myshelf.backend.application.dto.genre.ListGenreDTO;
-import br.com.myshelf.backend.application.dto.genre.GenreDTO;
+import br.com.myshelf.backend.application.dto.genre.GenreResponseDTO;
 import br.com.myshelf.backend.application.service.GenreService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class GenreController {
     private final GenreService genreService;
 
     @PostMapping
-    public ResponseEntity<GenreDTO> createGenre(@Valid @RequestBody GenreRegisterDTO genreRegisterDTO) {
+    public ResponseEntity<GenreResponseDTO> createGenre(@Valid @RequestBody GenreRegisterDTO genreRegisterDTO) {
         var genre = genreService.createGenre(genreRegisterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(genre);
     }

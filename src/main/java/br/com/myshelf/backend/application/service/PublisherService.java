@@ -3,7 +3,7 @@ package br.com.myshelf.backend.application.service;
 import br.com.myshelf.backend.application.dto.publisher.PublisherRegisterDTO;
 import br.com.myshelf.backend.application.dto.publisher.ListPublisherRegisterDTO;
 import br.com.myshelf.backend.application.dto.publisher.ListPublisherDTO;
-import br.com.myshelf.backend.application.dto.publisher.PublisherDTO;
+import br.com.myshelf.backend.application.dto.publisher.PublisherResponseDTO;
 import br.com.myshelf.backend.application.mapper.PublisherMapper;
 import br.com.myshelf.backend.domain.exception.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.domain.model.Publisher;
@@ -24,7 +24,7 @@ public class PublisherService {
     private final PublisherRepository publisherRepository;
     private final PublisherMapper publisherMapper;
 
-    public PublisherDTO createPublisher(PublisherRegisterDTO publisherRegisterDTO){
+    public PublisherResponseDTO createPublisher(PublisherRegisterDTO publisherRegisterDTO){
         if(publisherRepository.existsByNameIgnoreCase(publisherRegisterDTO.name().trim()))
             throw new ResourceAlreadyExistsException("Editora", "nome", publisherRegisterDTO.name().trim());
 

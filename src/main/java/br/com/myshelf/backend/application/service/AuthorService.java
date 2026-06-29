@@ -3,7 +3,7 @@ package br.com.myshelf.backend.application.service;
 import br.com.myshelf.backend.application.dto.author.AuthorRegisterDTO;
 import br.com.myshelf.backend.application.dto.author.ListAuthorRegisterDTO;
 import br.com.myshelf.backend.application.dto.author.ListAuthorDTO;
-import br.com.myshelf.backend.application.dto.author.AuthorDTO;
+import br.com.myshelf.backend.application.dto.author.AuthorResponseDTO;
 import br.com.myshelf.backend.application.mapper.AuthorMapper;
 import br.com.myshelf.backend.domain.exception.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.domain.model.Author;
@@ -24,7 +24,7 @@ public class AuthorService {
     private final AuthorRepository authorRepository;
     private final AuthorMapper authorMapper;
 
-    public AuthorDTO createAuthor(AuthorRegisterDTO authorRegisterDTO){
+    public AuthorResponseDTO createAuthor(AuthorRegisterDTO authorRegisterDTO){
         if(authorRepository.existsByNameIgnoreCase(authorRegisterDTO.name().trim()))
             throw new ResourceAlreadyExistsException("Autor", "nome", authorRegisterDTO.name().trim());
 

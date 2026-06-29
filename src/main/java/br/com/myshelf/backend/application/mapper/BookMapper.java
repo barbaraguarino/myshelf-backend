@@ -1,10 +1,12 @@
 package br.com.myshelf.backend.application.mapper;
 
+import br.com.myshelf.backend.application.dto.book.BookDTO;
 import br.com.myshelf.backend.application.dto.book.BookRegisterDTO;
 import br.com.myshelf.backend.domain.model.Author;
 import br.com.myshelf.backend.domain.model.Book;
 import br.com.myshelf.backend.domain.model.Genre;
 import br.com.myshelf.backend.domain.model.Publisher;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -12,7 +14,12 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-public class BookMapper{
+@RequiredArgsConstructor
+public class BookMapper {
+
+    private final PublisherMapper publisherMapper;
+    private final AuthorMapper authorMapper;
+    private final GenreMapper genreMapper;
 
     public Book toEntity(BookRegisterDTO dto,
                          Publisher publisher,
@@ -34,5 +41,26 @@ public class BookMapper{
                 publisher,
                 authorSet,
                 genreSet);
+    }
+
+    public BookDTO toResponseDTO(Book book) {
+        if (book == null) {
+            return null;
+        }
+
+        return new BookDTO(
+                book.getId(),
+                book.getCode(),
+                book.getTitle(),
+                book.getFormat(),
+                book.getPages(),
+                book.getEdition(),
+                book.getSummary(),
+                book.getLanguage(),
+                book.getPublicationYear(),
+                publisherMapper.toResponseDTO(book.getPublisher()),
+                authorMapper.toResponseDTO(book.getAuthors().stream().toList()).authors(),
+                genreMapper.toResponseDTO(book.getGenres().stream().toList()).genres()
+        );
     }
 }

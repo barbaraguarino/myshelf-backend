@@ -3,7 +3,7 @@ package br.com.myshelf.backend.application.service;
 import br.com.myshelf.backend.application.dto.genre.GenreRegisterDTO;
 import br.com.myshelf.backend.application.dto.genre.ListGenreRegisterDTO;
 import br.com.myshelf.backend.application.dto.genre.ListGenreDTO;
-import br.com.myshelf.backend.application.dto.genre.GenreDTO;
+import br.com.myshelf.backend.application.dto.genre.GenreResponseDTO;
 import br.com.myshelf.backend.application.mapper.GenreMapper;
 import br.com.myshelf.backend.domain.exception.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.domain.model.Genre;
@@ -24,7 +24,7 @@ public class GenreService {
     private final GenreRepository genreRepository;
     private final GenreMapper genreMapper;
 
-    public GenreDTO createGenre(GenreRegisterDTO genreRegisterDTO){
+    public GenreResponseDTO createGenre(GenreRegisterDTO genreRegisterDTO){
         if(genreRepository.existsByNameIgnoreCase(genreRegisterDTO.name().trim()))
             throw new ResourceAlreadyExistsException("Genre", "nome", genreRegisterDTO.name().trim());
 

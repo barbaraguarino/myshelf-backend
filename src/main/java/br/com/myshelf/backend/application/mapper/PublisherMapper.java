@@ -2,7 +2,7 @@ package br.com.myshelf.backend.application.mapper;
 
 import br.com.myshelf.backend.application.dto.publisher.PublisherRegisterDTO;
 import br.com.myshelf.backend.application.dto.publisher.ListPublisherDTO;
-import br.com.myshelf.backend.application.dto.publisher.PublisherDTO;
+import br.com.myshelf.backend.application.dto.publisher.PublisherResponseDTO;
 import br.com.myshelf.backend.domain.model.Publisher;
 import org.springframework.stereotype.Component;
 
@@ -18,15 +18,15 @@ public class PublisherMapper {
         return Publisher.createPublisher(dto.name());
     }
 
-    public PublisherDTO toResponseDTO(Publisher publisher) {
+    public PublisherResponseDTO toResponseDTO(Publisher publisher) {
         if (publisher == null) return null;
-        return new PublisherDTO(publisher.getId(), publisher.getName());
+        return new PublisherResponseDTO(publisher.getId(), publisher.getName());
     }
 
     public ListPublisherDTO toResponseDTO(List<Publisher> publishers) {
         if (publishers == null) return new ListPublisherDTO(Collections.emptyList());
 
-        List<PublisherDTO> list = publishers.stream()
+        List<PublisherResponseDTO> list = publishers.stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
 
