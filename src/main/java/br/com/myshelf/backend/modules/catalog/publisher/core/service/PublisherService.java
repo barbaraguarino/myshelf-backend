@@ -1,6 +1,7 @@
 package br.com.myshelf.backend.modules.catalog.publisher.core.service;
 
 import br.com.myshelf.backend.core.exception.domain.ResourceAlreadyExistsException;
+import br.com.myshelf.backend.core.exception.domain.ResourceNotFoundException;
 import br.com.myshelf.backend.modules.catalog.publisher.api.dto.ListPublisherDTO;
 import br.com.myshelf.backend.modules.catalog.publisher.api.dto.ListPublisherRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.publisher.api.dto.PublisherRegisterDTO;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -69,5 +71,9 @@ public class PublisherService {
         }
 
         return publisherMapper.toResponseDTO(allPublishersReturn);
+    }
+
+    public Publisher findPublisherById(UUID publisherId) {
+        return publisherRepository.findById(publisherId).orElseThrow(() -> new ResourceNotFoundException("Editora", publisherId));
     }
 }

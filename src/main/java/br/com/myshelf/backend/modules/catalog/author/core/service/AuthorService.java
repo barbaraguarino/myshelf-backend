@@ -1,6 +1,7 @@
 package br.com.myshelf.backend.modules.catalog.author.core.service;
 
 import br.com.myshelf.backend.core.exception.domain.ResourceAlreadyExistsException;
+import br.com.myshelf.backend.core.exception.domain.ResourceNotFoundException;
 import br.com.myshelf.backend.modules.catalog.author.api.dto.AuthorRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.author.api.dto.AuthorResponseDTO;
 import br.com.myshelf.backend.modules.catalog.author.api.dto.ListAuthorDTO;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -68,5 +70,10 @@ public class AuthorService {
         }
 
         return authorMapper.toResponseDTO(allAuthorsReturn);
+    }
+
+    public Author findAuthorById(UUID authorId) {
+        return authorRepository.findById(authorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Autor", authorId));
     }
 }

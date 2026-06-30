@@ -1,6 +1,7 @@
 package br.com.myshelf.backend.modules.catalog.genre.core.service;
 
 import br.com.myshelf.backend.core.exception.domain.ResourceAlreadyExistsException;
+import br.com.myshelf.backend.core.exception.domain.ResourceNotFoundException;
 import br.com.myshelf.backend.modules.catalog.genre.api.dto.ListGenreDTO;
 import br.com.myshelf.backend.modules.catalog.genre.api.dto.ListGenreRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.genre.api.dto.GenreRegisterDTO;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -69,5 +71,9 @@ public class GenreService {
         }
 
         return genreMapper.toResponseDTO(allGenresReturn);
+    }
+
+    public Genre findGenreById(UUID genreId){
+        return genreRepository.findById(genreId).orElseThrow(() -> new ResourceNotFoundException("Gênero literário", genreId));
     }
 }
