@@ -3,7 +3,7 @@ package br.com.myshelf.backend.modules.catalog.book.core.service;
 import br.com.myshelf.backend.core.exception.domain.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.modules.catalog.author.core.model.Author;
 import br.com.myshelf.backend.modules.catalog.author.core.service.AuthorService;
-import br.com.myshelf.backend.modules.catalog.book.api.dto.BookDTO;
+import br.com.myshelf.backend.modules.catalog.book.api.dto.BookResponseDTO;
 import br.com.myshelf.backend.modules.catalog.book.api.mapper.BookMapper;
 import br.com.myshelf.backend.modules.catalog.book.api.dto.BookRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.book.core.model.Book;
@@ -30,7 +30,7 @@ public class BookService {
     private final BookMapper bookMapper;
 
     @Transactional
-    public BookDTO createBook(BookRegisterDTO dto) {
+    public BookResponseDTO createBook(BookRegisterDTO dto) {
 
         if (bookRepository.existsByCodeIgnoreCase(dto.code().trim())) {
             throw new ResourceAlreadyExistsException("Livro", "ISBN/código", dto.code());

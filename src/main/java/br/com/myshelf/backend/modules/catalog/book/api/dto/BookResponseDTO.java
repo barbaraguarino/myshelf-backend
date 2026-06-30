@@ -7,7 +7,7 @@ import br.com.myshelf.backend.modules.catalog.publisher.api.dto.PublisherRespons
 import java.util.List;
 import java.util.UUID;
 
-public record BookDTO(
+public record BookResponseDTO(
         UUID id,
         String code,
         String title,

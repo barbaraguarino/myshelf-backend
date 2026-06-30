@@ -1,6 +1,6 @@
 package br.com.myshelf.backend.modules.catalog.book.api.mapper;
 
-import br.com.myshelf.backend.modules.catalog.book.api.dto.BookDTO;
+import br.com.myshelf.backend.modules.catalog.book.api.dto.BookResponseDTO;
 import br.com.myshelf.backend.modules.catalog.book.api.dto.BookRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.book.core.model.Book;
 import br.com.myshelf.backend.modules.catalog.genre.api.mapper.GenreMapper;
@@ -46,12 +46,12 @@ public class BookMapper {
                 genreSet);
     }
 
-    public BookDTO toResponseDTO(Book book) {
+    public BookResponseDTO toResponseDTO(Book book) {
         if (book == null) {
             return null;
         }
 
-        return new BookDTO(
+        return new BookResponseDTO(
                 book.getId(),
                 book.getCode(),
                 book.getTitle(),

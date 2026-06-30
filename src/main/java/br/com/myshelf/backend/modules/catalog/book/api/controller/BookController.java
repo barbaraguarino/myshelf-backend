@@ -1,6 +1,6 @@
 package br.com.myshelf.backend.modules.catalog.book.api.controller;
 
-import br.com.myshelf.backend.modules.catalog.book.api.dto.BookDTO;
+import br.com.myshelf.backend.modules.catalog.book.api.dto.BookResponseDTO;
 import br.com.myshelf.backend.modules.catalog.book.api.dto.BookRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.book.core.service.BookService;
 import jakarta.validation.Valid;
@@ -20,7 +20,7 @@ public class BookController {
     private final BookService bookService;
 
     @PostMapping
-    public ResponseEntity<BookDTO> register(@RequestBody @Valid BookRegisterDTO dto) {
+    public ResponseEntity<BookResponseDTO> register(@RequestBody @Valid BookRegisterDTO dto) {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(bookService.createBook(dto));
     }
