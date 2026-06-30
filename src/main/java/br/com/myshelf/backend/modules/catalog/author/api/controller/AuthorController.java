@@ -2,7 +2,7 @@ package br.com.myshelf.backend.modules.catalog.author.api.controller;
 
 import br.com.myshelf.backend.modules.catalog.author.api.dto.AuthorRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.author.api.dto.AuthorResponseDTO;
-import br.com.myshelf.backend.modules.catalog.author.api.dto.ListAuthorDTO;
+import br.com.myshelf.backend.modules.catalog.author.api.dto.ListAuthorResponseDTO;
 import br.com.myshelf.backend.modules.catalog.author.api.dto.ListAuthorRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.author.core.service.AuthorService;
 import jakarta.validation.Valid;
@@ -28,7 +28,7 @@ public class AuthorController {
     }
 
     @PostMapping("/list")
-    public ResponseEntity<ListAuthorDTO> createAuthorList(@Valid @RequestBody ListAuthorRegisterDTO listAuthorRegisterDTO){
+    public ResponseEntity<ListAuthorResponseDTO> createAuthorList(@Valid @RequestBody ListAuthorRegisterDTO listAuthorRegisterDTO){
         var authorList = authorService.createAuthorList(listAuthorRegisterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(authorList);
     }

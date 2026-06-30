@@ -4,7 +4,7 @@ import br.com.myshelf.backend.core.exception.domain.ResourceAlreadyExistsExcepti
 import br.com.myshelf.backend.core.exception.domain.ResourceNotFoundException;
 import br.com.myshelf.backend.modules.catalog.author.api.dto.AuthorRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.author.api.dto.AuthorResponseDTO;
-import br.com.myshelf.backend.modules.catalog.author.api.dto.ListAuthorDTO;
+import br.com.myshelf.backend.modules.catalog.author.api.dto.ListAuthorResponseDTO;
 import br.com.myshelf.backend.modules.catalog.author.api.dto.ListAuthorRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.author.api.mapper.AuthorMapper;
 import br.com.myshelf.backend.modules.catalog.author.core.model.Author;
@@ -36,7 +36,7 @@ public class AuthorService {
         return authorMapper.toResponseDTO(author);
     }
 
-    public ListAuthorDTO createAuthorList(ListAuthorRegisterDTO listAuthorRegisterDTO) {
+    public ListAuthorResponseDTO createAuthorList(ListAuthorRegisterDTO listAuthorRegisterDTO) {
         List<String> names = listAuthorRegisterDTO.authors().stream()
                 .map(dto -> dto.name().trim())
                 .toList();
