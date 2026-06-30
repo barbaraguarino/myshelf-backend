@@ -4,9 +4,9 @@ import br.com.myshelf.backend.core.util.NicknameGenerator;
 import br.com.myshelf.backend.core.exception.domain.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.core.security.TokenService;
 import br.com.myshelf.backend.core.security.UserDetailsAdapter;
-import br.com.myshelf.backend.modules.identity.api.dto.UserLoginDTO;
+import br.com.myshelf.backend.modules.identity.api.dto.UserLoginRequestDTO;
 import br.com.myshelf.backend.modules.identity.api.dto.UserLoginResponseDTO;
-import br.com.myshelf.backend.modules.identity.api.dto.UserRegisterDTO;
+import br.com.myshelf.backend.modules.identity.api.dto.UserRegisterRequestDTO;
 import br.com.myshelf.backend.modules.identity.api.mapper.UserMapper;
 import br.com.myshelf.backend.modules.identity.core.model.User;
 import br.com.myshelf.backend.modules.identity.data.UserRepository;
@@ -30,7 +30,7 @@ public class AuthService {
 
     public record AuthResultLogin(String token, UserLoginResponseDTO dto){}
 
-    public void createUser(UserRegisterDTO userRegisterDTO) {
+    public void createUser(UserRegisterRequestDTO userRegisterDTO) {
 
         if(userRepository.existsByEmail(userRegisterDTO.email()))
             throw new ResourceAlreadyExistsException("Usuário", "e-mail", userRegisterDTO.email());
@@ -42,11 +42,11 @@ public class AuthService {
 
     }
 
-    public AuthResultLogin login(UserLoginDTO userLoginDTO){
+    public AuthResultLogin login(UserLoginRequestDTO userLoginRequestDTO){
 
         var authenticationToken = new UsernamePasswordAuthenticationToken(
-                userLoginDTO.email(),
-                userLoginDTO.password());
+                userLoginRequestDTO.email(),
+                userLoginRequestDTO.password());
 
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
 

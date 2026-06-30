@@ -1,9 +1,9 @@
 package br.com.myshelf.backend.modules.identity.api.controller;
 
+import br.com.myshelf.backend.modules.identity.api.dto.UserRegisterRequestDTO;
 import br.com.myshelf.backend.modules.identity.core.service.AuthService;
-import br.com.myshelf.backend.modules.identity.api.dto.UserLoginDTO;
+import br.com.myshelf.backend.modules.identity.api.dto.UserLoginRequestDTO;
 import br.com.myshelf.backend.modules.identity.api.dto.UserLoginResponseDTO;
-import br.com.myshelf.backend.modules.identity.api.dto.UserRegisterDTO;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -28,16 +28,16 @@ public class AuthController {
     private String TOKEN_NAME;
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
+    public ResponseEntity<Void> register(@Valid @RequestBody UserRegisterRequestDTO userRegisterDTO) {
         authService.createUser(userRegisterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/login")
     public ResponseEntity<UserLoginResponseDTO> login(
-            @Valid @RequestBody UserLoginDTO userLoginDTO) {
+            @Valid @RequestBody UserLoginRequestDTO userLoginRequestDTO) {
 
-        var response = authService.login(userLoginDTO);
+        var response = authService.login(userLoginRequestDTO);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .header(HttpHeaders.SET_COOKIE, getResponseCookie(response.token()).toString())

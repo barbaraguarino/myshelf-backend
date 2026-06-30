@@ -1,14 +1,14 @@
 package br.com.myshelf.backend.modules.identity.api.mapper;
 
 import br.com.myshelf.backend.modules.identity.api.dto.UserLoginResponseDTO;
-import br.com.myshelf.backend.modules.identity.api.dto.UserRegisterDTO;
+import br.com.myshelf.backend.modules.identity.api.dto.UserRegisterRequestDTO;
 import br.com.myshelf.backend.modules.identity.core.model.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
 
-    public User toEntity(UserRegisterDTO userRegisterDTO, String encodedPassword, String nickname) {
+    public User toEntity(UserRegisterRequestDTO userRegisterDTO, String encodedPassword, String nickname) {
         if(userRegisterDTO == null)
             return null;
 

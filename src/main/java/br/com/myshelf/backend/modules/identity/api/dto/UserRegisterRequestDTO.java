@@ -2,7 +2,7 @@ package br.com.myshelf.backend.modules.identity.api.dto;
 
 import jakarta.validation.constraints.*;
 
-public record  UserRegisterDTO(
+public record  UserRegisterRequestDTO(
 
         @NotBlank(message = "O nome é obrigatório.")
         @Size(min = 3, max = 10, message = "O nome deve ter entre 3 e 150 caracteres.")
