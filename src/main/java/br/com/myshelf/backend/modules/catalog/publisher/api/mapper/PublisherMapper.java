@@ -1,6 +1,6 @@
 package br.com.myshelf.backend.modules.catalog.publisher.api.mapper;
 
-import br.com.myshelf.backend.modules.catalog.publisher.api.dto.ListPublisherDTO;
+import br.com.myshelf.backend.modules.catalog.publisher.api.dto.ListPublisherResponseDTO;
 import br.com.myshelf.backend.modules.catalog.publisher.api.dto.PublisherRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.publisher.api.dto.PublisherResponseDTO;
 import br.com.myshelf.backend.modules.catalog.publisher.core.model.Publisher;
@@ -23,13 +23,13 @@ public class PublisherMapper {
         return new PublisherResponseDTO(publisher.getId(), publisher.getName());
     }
 
-    public ListPublisherDTO toResponseDTO(List<Publisher> publishers) {
-        if (publishers == null) return new ListPublisherDTO(Collections.emptyList());
+    public ListPublisherResponseDTO toResponseDTO(List<Publisher> publishers) {
+        if (publishers == null) return new ListPublisherResponseDTO(Collections.emptyList());
 
         List<PublisherResponseDTO> list = publishers.stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
 
-        return new ListPublisherDTO(list);
+        return new ListPublisherResponseDTO(list);
     }
 }

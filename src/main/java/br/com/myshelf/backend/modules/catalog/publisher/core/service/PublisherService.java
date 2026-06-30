@@ -2,7 +2,7 @@ package br.com.myshelf.backend.modules.catalog.publisher.core.service;
 
 import br.com.myshelf.backend.core.exception.domain.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.core.exception.domain.ResourceNotFoundException;
-import br.com.myshelf.backend.modules.catalog.publisher.api.dto.ListPublisherDTO;
+import br.com.myshelf.backend.modules.catalog.publisher.api.dto.ListPublisherResponseDTO;
 import br.com.myshelf.backend.modules.catalog.publisher.api.dto.ListPublisherRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.publisher.api.dto.PublisherRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.publisher.api.dto.PublisherResponseDTO;
@@ -36,7 +36,7 @@ public class PublisherService {
         return publisherMapper.toResponseDTO(publisher);
     }
 
-    public ListPublisherDTO createPublisherList(ListPublisherRegisterDTO listPublisherRegisterDTO) {
+    public ListPublisherResponseDTO createPublisherList(ListPublisherRegisterDTO listPublisherRegisterDTO) {
         List<String> names = listPublisherRegisterDTO.publishers().stream()
                 .map(dto -> dto.name().trim())
                 .toList();

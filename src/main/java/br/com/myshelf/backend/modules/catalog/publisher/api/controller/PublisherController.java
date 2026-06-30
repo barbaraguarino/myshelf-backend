@@ -1,7 +1,7 @@
 package br.com.myshelf.backend.modules.catalog.publisher.api.controller;
 
 import br.com.myshelf.backend.modules.catalog.publisher.core.service.PublisherService;
-import br.com.myshelf.backend.modules.catalog.publisher.api.dto.ListPublisherDTO;
+import br.com.myshelf.backend.modules.catalog.publisher.api.dto.ListPublisherResponseDTO;
 import br.com.myshelf.backend.modules.catalog.publisher.api.dto.ListPublisherRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.publisher.api.dto.PublisherRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.publisher.api.dto.PublisherResponseDTO;
@@ -28,7 +28,7 @@ public class PublisherController {
     }
 
     @PostMapping("/list")
-    public ResponseEntity<ListPublisherDTO> createPublisherList(@Valid @RequestBody ListPublisherRegisterDTO listPublisherRegisterDTO){
+    public ResponseEntity<ListPublisherResponseDTO> createPublisherList(@Valid @RequestBody ListPublisherRegisterDTO listPublisherRegisterDTO){
         var publisherList = publisherService.createPublisherList(listPublisherRegisterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(publisherList);
     }

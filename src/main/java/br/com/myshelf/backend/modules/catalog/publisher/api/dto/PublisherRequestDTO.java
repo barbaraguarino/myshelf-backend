@@ -6,7 +6,5 @@ import java.util.UUID;
 
 public record PublisherRequestDTO(
         @NotNull(message = "O ID da editora é obrigatório.")
-        UUID id,
-        @NotNull(message = "O nome da editora é obrigatório.")
-        String name
+        UUID id
 ){}
