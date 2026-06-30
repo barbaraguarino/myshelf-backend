@@ -25,7 +25,7 @@ public class Publisher {
 
     private String name;
 
-    @OneToMany(mappedBy = "publisher_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Book> books = new HashSet<>();
 
     @CreationTimestamp
