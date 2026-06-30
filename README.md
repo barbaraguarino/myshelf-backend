@@ -49,27 +49,27 @@ A proposta inicial do MyShelf inclui:
 O projeto segue uma organização em camadas, separando responsabilidades de forma simples e objetiva.
 
 ```text
-src/main/java/br/com/myshelf/backend
-│
-├── MyShelfApplication.java           # Entrypoint da aplicação
-│
-├── domain/                           # Núcleo: Regras de Negócio
-│   ├── model/                        # Entidades JPA
-│   ├── repository/                   # Interfaces (Portas de saída para o DB)
-│   └── exception/                    # Exceções customizadas do domínio
-│
-├── application/                      # Casos de Uso
-│   ├── service/                      # Implementação da lógica
-│   └── dto/                          # Objetos de Transferência (Request/Response)
-│
-├── infrastructure/                   # Detalhes Técnicos e Adaptadores
-│   ├── web/                          # Controllers REST
-│   ├── security/                     # Filtros Spring Security e TokenService (JWT)
-│   └── config/                       # Configurações de Beans e CORS
-│
-└── resources/
-    ├── application.yml               # Propriedades do Spring
-    └── db/migration/                 # Scripts de versão do Flyway (V1, V2...)
+br.com.myshelf.backend/
+├── core/                  
+└── modules/               
+    ├── identity/          
+    │   ├── api/           
+    │   └── core/          
+    │
+    └── catalog/           
+        ├── author/        
+        │   ├── api/       
+        │   ├── core/      
+        │   └── data/      
+        │
+        ├── book/          
+        │   ├── api/       
+        │   ├── core/          
+        │   └── data/        
+        │
+        └── genre/         
+            ├── api/            
+            └── core/             
 ```
 
 ## Como executar o projeto

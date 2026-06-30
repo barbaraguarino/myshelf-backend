@@ -13,14 +13,19 @@ Esta seção contém as tarefas que devem ser executadas sequencialmente.
 - [x] **Cadastro de Gêneros Literários**: Configurar as regras de negócios e estrutura básica com domínio e DTOs para persistir os gêneros literários no banco de dados.
 - [x] **Cadastro de Editoras**: Configurar as regras de negócios e estrutura básica com domínio e DTOs para persistir as editoras no banco de dados.
 - [x] **Cadastro de Autores**: Configurar as regras de negócios e estrutura básica com domínio e DTOs para persistir os autores no banco de dados.
-- [ ] **Cadastro de Livros**: Configurar as regras de negócios e estrutura básica com domínio e DTOs para persistir os livros no banco de dados.
-
+- [x] **Cadastro de Livros**: Configurar as regras de negócios e estrutura básica com domínio e DTOs para persistir os livros no banco de dados.
+- [ ] **Listagem Paginada de Gêneros Literários**: Implementar endpoint GET para listar os gêneros cadastrados, garantindo paginação nativa e retorno otimizado via DTOs.
+- [ ] **Listagem Paginada de Editoras**: Implementar endpoint GET para listar as editoras, garantindo paginação nativa e retorno otimizado via DTOs.
+- [ ] **Listagem Paginada de Autores**: Implementar endpoint GET para listar os autores, garantindo paginação nativa e retorno otimizado via DTOs.
+- [ ] **Listagem Paginada de Livros**: Implementar endpoint GET para listar os livros, garantindo paginação nativa e retorno otimizado via DTOs para evitar o problema de N+1 queries.
+- [ ] **Busca por Identificador de Editora**: Implementar endpoint GET para retornar os detalhes de uma única editora, garantindo a requisição minuciosa de um único registro.
+- [ ] **Busca por Identificador de Autores**: Implementar endpoint GET para retornar os detalhes de um único autor, garantindo a requisição minuciosa de um único registro.
+- [ ] **Busca por Identificador de Gêneros Literários**: Implementar endpoint GET para retornar os detalhes de um único gênero literário, garantindo a requisição minuciosa de um único registro.
+- [ ] **Busca por Identificador de Livros**: Implementar endpoint GET para retornar os detalhes de um único livro, garantindo a requisição minuciosa de um único registro.
 
 ## Próximos Passos
 
 Tarefas que serão puxadas para execução conforme a necessidade.
 
-- **Listagem Paginada**: Implementação de endpoints `GET` para listar Autores, Editoras, Categorias e Livros. O foco será garantir paginação nativa e retorno otimizado via DTOs para evitar o problema de N+1 queries.
-- **Busca por Identificador**: Endpoints `GET` específicos para retornar os detalhes minuciosos de um único registro.
 - **Edição de Registros**: Endpoints `PUT` focados na atualização integral (substituição) das informações de Autores, Editoras, Categorias e Livros.
 - **Deleção Segura**: Endpoints `DELETE` contendo regras de negócio defensivas para impedir a exclusão de categorias ou autores que já possuam vínculos ativos com livros (integridade referencial).

@@ -8,7 +8,7 @@ CREATE TABLE tb_books (
     edition INTEGER,
     summary TEXT,
     language VARCHAR(5),
-    publication_year INTEGER NOT NULL ,
+    publication_year INTEGER NOT NULL,
     publisher_id UUID NOT NULL,
 
     created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
