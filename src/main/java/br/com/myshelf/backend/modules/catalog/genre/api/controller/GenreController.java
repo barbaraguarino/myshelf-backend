@@ -2,7 +2,7 @@ package br.com.myshelf.backend.modules.catalog.genre.api.controller;
 
 import br.com.myshelf.backend.modules.catalog.genre.api.dto.GenreRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.genre.api.dto.GenreResponseDTO;
-import br.com.myshelf.backend.modules.catalog.genre.api.dto.ListGenreDTO;
+import br.com.myshelf.backend.modules.catalog.genre.api.dto.ListGenreResponseDTO;
 import br.com.myshelf.backend.modules.catalog.genre.api.dto.ListGenreRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.genre.core.service.GenreService;
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ public class GenreController {
     }
 
     @PostMapping("/list")
-    public ResponseEntity<ListGenreDTO> createGenreList(@Valid @RequestBody ListGenreRegisterDTO listGenreRegisterDTO){
+    public ResponseEntity<ListGenreResponseDTO> createGenreList(@Valid @RequestBody ListGenreRegisterDTO listGenreRegisterDTO){
         var genreList = genreService.createGenreList(listGenreRegisterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(genreList);
     }

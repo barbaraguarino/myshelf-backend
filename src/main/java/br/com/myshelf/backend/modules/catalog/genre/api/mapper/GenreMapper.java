@@ -2,7 +2,7 @@ package br.com.myshelf.backend.modules.catalog.genre.api.mapper;
 
 import br.com.myshelf.backend.modules.catalog.genre.api.dto.GenreRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.genre.api.dto.GenreResponseDTO;
-import br.com.myshelf.backend.modules.catalog.genre.api.dto.ListGenreDTO;
+import br.com.myshelf.backend.modules.catalog.genre.api.dto.ListGenreResponseDTO;
 import br.com.myshelf.backend.modules.catalog.genre.core.model.Genre;
 import org.springframework.stereotype.Component;
 
@@ -23,13 +23,13 @@ public class GenreMapper {
         return new GenreResponseDTO(genre.getId(), genre.getName());
     }
 
-    public ListGenreDTO toResponseDTO(List<Genre> genres) {
-        if (genres == null) return new ListGenreDTO(Collections.emptyList());
+    public ListGenreResponseDTO toResponseDTO(List<Genre> genres) {
+        if (genres == null) return new ListGenreResponseDTO(Collections.emptyList());
 
         List<GenreResponseDTO> list = genres.stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
 
-        return new ListGenreDTO(list);
+        return new ListGenreResponseDTO(list);
     }
 }

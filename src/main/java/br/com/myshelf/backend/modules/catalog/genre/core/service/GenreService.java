@@ -2,7 +2,7 @@ package br.com.myshelf.backend.modules.catalog.genre.core.service;
 
 import br.com.myshelf.backend.core.exception.domain.ResourceAlreadyExistsException;
 import br.com.myshelf.backend.core.exception.domain.ResourceNotFoundException;
-import br.com.myshelf.backend.modules.catalog.genre.api.dto.ListGenreDTO;
+import br.com.myshelf.backend.modules.catalog.genre.api.dto.ListGenreResponseDTO;
 import br.com.myshelf.backend.modules.catalog.genre.api.dto.ListGenreRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.genre.api.dto.GenreRegisterDTO;
 import br.com.myshelf.backend.modules.catalog.genre.api.dto.GenreResponseDTO;
@@ -36,8 +36,8 @@ public class GenreService {
         return genreMapper.toResponseDTO(genre);
     }
 
-    public ListGenreDTO createGenreList(ListGenreRegisterDTO listGenreRegisterDTO) {
-        List<String> names = listGenreRegisterDTO.genreList().stream()
+    public ListGenreResponseDTO createGenreList(ListGenreRegisterDTO listGenreRegisterDTO) {
+        List<String> names = listGenreRegisterDTO.genres().stream()
                 .map(dto -> dto.name().trim())
                 .toList();
 

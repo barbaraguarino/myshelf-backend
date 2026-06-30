@@ -8,5 +8,5 @@ import java.util.List;
 public record ListGenreRegisterDTO(
     @NotEmpty(message = "A lista de gêneros literários não pode estar vazia.")
     @Valid
-    List<GenreRegisterDTO> genreList
+    List<GenreRegisterDTO> genres
 ){}
