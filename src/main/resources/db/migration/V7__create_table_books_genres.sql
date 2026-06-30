@@ -1,0 +1,13 @@
+CREATE TABLE tb_books_genres (
+
+    book_id UUID NOT NULL,
+    genre_id UUID NOT NULL,
+
+    PRIMARY KEY (book_id, genre_id),
+
+    created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_book FOREIGN KEY (book_id) REFERENCES tb_books(id) ON DELETE CASCADE,
+    CONSTRAINT fk_genre FOREIGN KEY (genre_id) REFERENCES tb_genres(id) ON DELETE CASCADE
+);
