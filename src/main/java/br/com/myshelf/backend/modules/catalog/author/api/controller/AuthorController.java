@@ -7,12 +7,11 @@ import br.com.myshelf.backend.modules.catalog.author.api.dto.ListAuthorRegisterD
 import br.com.myshelf.backend.modules.catalog.author.core.service.AuthorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/authors")
@@ -31,5 +30,10 @@ public class AuthorController {
     public ResponseEntity<ListAuthorResponseDTO> createAuthorList(@Valid @RequestBody ListAuthorRegisterDTO listAuthorRegisterDTO){
         var authorList = authorService.createAuthorList(listAuthorRegisterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(authorList);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<AuthorResponseDTO>> listAllAuthors(Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(authorService.findAllByPage(pageable));
     }
 }
