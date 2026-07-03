@@ -34,7 +34,6 @@ public class GenreController {
 
     @GetMapping
     public ResponseEntity<Page<GenreResponseDTO>> listAllGenres(Pageable pageable) {
-        Page<GenreResponseDTO> pageResult = genreService.findAllPaged(pageable);
-        return ResponseEntity.ok(pageResult);
+        return ResponseEntity.status(HttpStatus.OK).body(genreService.findAllPaged(pageable));
     }
 }

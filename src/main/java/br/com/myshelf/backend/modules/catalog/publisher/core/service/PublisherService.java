@@ -11,7 +11,10 @@ import br.com.myshelf.backend.modules.catalog.publisher.core.model.Publisher;
 import br.com.myshelf.backend.modules.catalog.publisher.data.PublisherRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +78,11 @@ public class PublisherService {
 
     public Publisher findPublisherById(UUID publisherId) {
         return publisherRepository.findById(publisherId).orElseThrow(() -> new ResourceNotFoundException("Editora", publisherId));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<PublisherResponseDTO> findAllPaged(Pageable pageable) {
+        Page<Publisher> publisherPage = publisherRepository.findAll(pageable);
+        return publisherPage.map(publisherMapper::toResponseDTO);
     }
 }
