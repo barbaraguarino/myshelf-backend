@@ -1,0 +1,62 @@
+@host = http://localhost:8080/api/v1
+
+### 1. Registrar Conta
+POST {{host}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Administrador",
+  "email": "admin@myshelf.com",
+  "password": "Password@123"
+}
+
+### 2. Login
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@myshelf.com",
+  "password": "Password@123"
+}
+
+### 3. Cadastrar Único Gênero
+POST {{host}}/genres
+Content-Type: application/json
+
+{
+  "name": "Ficção Científica"
+}
+
+### 4. Cadastrar 35 Gêneros em Lote
+POST {{host}}/genres/list
+Content-Type: application/json
+
+{
+  "genres": [
+    { "name": "Fantasia" }, { "name": "Romance" }, { "name": "Terror" },
+    { "name": "Suspense" }, { "name": "Mistério" }, { "name": "Aventura" },
+    { "name": "Distopia" }, { "name": "Utopia" }, { "name": "Policial" },
+    { "name": "Thriller" }, { "name": "Histórico" }, { "name": "Biografia" },
+    { "name": "Autobiografia" }, { "name": "Memórias" }, { "name": "Ensaios" },
+    { "name": "Poesia" }, { "name": "Contos" }, { "name": "Crônicas" },
+    { "name": "Drama" }, { "name": "Comédia" }, { "name": "Sátira" },
+    { "name": "Tragédia" }, { "name": "Ação" }, { "name": "Infantil" },
+    { "name": "Jovem Adulto (YA)" }, { "name": "Novo Adulto (NA)" },
+    { "name": "Realismo Mágico" }, { "name": "Ficção Histórica" },
+    { "name": "Ficção Cristã" }, { "name": "Desenvolvimento Pessoal" },
+    { "name": "Negócios" }, { "name": "Ciência" }, { "name": "Filosofia" },
+    { "name": "Religião e Espiritualidade" }, { "name": "Arte e Fotografia" }
+  ]
+}
+
+### 5. Listar Gêneros: Comportamento Padrão (@PageableDefault)
+GET {{host}}/genres
+Accept: application/json
+
+### 6. Listar Gêneros: Paginação Explícita (Página 2)
+GET {{host}}/genres?page=1&size=5
+Accept: application/json
+
+### 7. Listar Gêneros: Ordenação Customizada
+GET {{host}}/genres?page=0&size=20&sort=name,desc
+Accept: application/json

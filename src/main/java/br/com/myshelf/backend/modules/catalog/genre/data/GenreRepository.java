@@ -1,6 +1,9 @@
 package br.com.myshelf.backend.modules.catalog.genre.data;
 
 import br.com.myshelf.backend.modules.catalog.genre.core.model.Genre;
+import lombok.NonNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +14,5 @@ import java.util.UUID;
 public interface GenreRepository extends JpaRepository<Genre, UUID> {
     boolean existsByNameIgnoreCase(String name);
     List<Genre> findByNameInIgnoreCase(List<String> names);
+    @NonNull Page<Genre> findAll(@NonNull Pageable pageable);
 }
