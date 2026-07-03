@@ -11,7 +11,10 @@ import br.com.myshelf.backend.modules.catalog.author.core.model.Author;
 import br.com.myshelf.backend.modules.catalog.author.data.AuthorRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +78,11 @@ public class AuthorService {
     public Author findAuthorById(UUID authorId) {
         return authorRepository.findById(authorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Autor", authorId));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<AuthorResponseDTO> findAllByPage(Pageable pageable) {
+        Page<Author> authorPage = authorRepository.findAll(pageable);
+        return authorPage.map(authorMapper::toResponseDTO);
     }
 }
