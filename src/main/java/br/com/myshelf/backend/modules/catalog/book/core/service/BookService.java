@@ -14,6 +14,8 @@ import br.com.myshelf.backend.modules.catalog.publisher.core.model.Publisher;
 import br.com.myshelf.backend.modules.catalog.publisher.core.service.PublisherService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,5 +58,11 @@ public class BookService {
         );
 
         return bookMapper.toResponseDTO(bookRepository.save(book));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BookResponseDTO> listAllBooks(Pageable pageable) {
+        Page<Book> books = bookRepository.findAll(pageable);
+        return books.map(bookMapper::toResponseDTO);
     }
 }
