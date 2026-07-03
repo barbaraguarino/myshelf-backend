@@ -11,7 +11,10 @@ import br.com.myshelf.backend.modules.catalog.genre.core.model.Genre;
 import br.com.myshelf.backend.modules.catalog.genre.data.GenreRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +78,11 @@ public class GenreService {
 
     public Genre findGenreById(UUID genreId){
         return genreRepository.findById(genreId).orElseThrow(() -> new ResourceNotFoundException("Gênero literário", genreId));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<GenreResponseDTO> findAllPaged(Pageable pageable) {
+        Page<Genre> genrePage = genreRepository.findAll(pageable);
+        return genrePage.map(genreMapper::toResponseDTO);
     }
 }
